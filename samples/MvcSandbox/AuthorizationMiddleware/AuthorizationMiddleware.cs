@@ -42,7 +42,7 @@ namespace MvcSandbox.AuthorizationMiddleware
                 // Only run authorization if endpoint has metadata
                 if (metadata != null)
                 {
-                    if (!httpContext.Request.Headers.TryGetValue("x-role", out var role) ||
+                    if (!httpContext.Request.Query.TryGetValue("x-role", out var role) ||
                         !metadata.Roles.Contains(role.ToString()))
                     {
                         httpContext.Response.StatusCode = 401;
