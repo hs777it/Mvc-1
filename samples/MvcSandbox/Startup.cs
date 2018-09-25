@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using MvcSandbox.AuthorizationMiddleware;
 
 namespace MvcSandbox
 {
@@ -26,21 +27,18 @@ namespace MvcSandbox
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app)
         {
-            app.UseEndpointRouting(endpoints =>
+            app.UseEndpointRouting(builder =>
             {
-                endpoints.MapGet(
+                builder.MapGet(
                     requestDelegate: WriteEndpoints,
                     pattern: "/endpoints",
                     displayName: "Home");
 
-                endpoints.MapMvcRoute(
+                builder.MapMvcRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
 
-                endpoints.MapMvcRoute(
-                    name: "default",
-                    template: "admin/{controller=Home}/{action=Index}/{id?}")
-                    .RequireAuthorization("admin");
+                builder.MapHealthChecks("/healthz");
             });
 
             app.UseDeveloperExceptionPage();

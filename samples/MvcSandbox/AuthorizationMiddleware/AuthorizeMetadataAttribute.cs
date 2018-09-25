@@ -4,21 +4,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MvcSandbox.AuthorizationMiddleware
 {
-    public class AuthorizationMetadata
+    public class AuthorizeMetadataAttribute : Attribute
     {
-        public AuthorizationMetadata(IEnumerable<string> roles)
+        public AuthorizeMetadataAttribute(string[] roles)
         {
-            if (roles == null)
-            {
-                throw new ArgumentNullException(nameof(roles));
-            }
-
-            Roles = roles.ToArray();
+            Roles = roles;
         }
 
-        public IReadOnlyList<string> Roles { get; }
+        public string[] Roles { get; }
     }
 }

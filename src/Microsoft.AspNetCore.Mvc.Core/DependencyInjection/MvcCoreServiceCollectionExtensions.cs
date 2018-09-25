@@ -268,8 +268,7 @@ namespace Microsoft.Extensions.DependencyInjection
             //
             // Endpoint Routing / Endpoints
             //
-            services.TryAddEnumerable(
-                ServiceDescriptor.Singleton<EndpointDataSource, MvcEndpointDataSource>());
+            services.TryAddSingleton<MvcEndpointDataSource>();
             services.TryAddSingleton<MvcEndpointInvokerFactory>();
 
             //
