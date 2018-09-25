@@ -15,6 +15,12 @@ namespace MvcSandbox
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Latest);
+
+            services.AddRouting(options =>
+            {
+                options.ConstraintMap["slugify"] = typeof(SlugifyParameterTransformer);
+                options.ConstraintMap["zalgo"] = typeof(ZalgoParameterTransformer);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -22,11 +28,13 @@ namespace MvcSandbox
         {
             app.UseDeveloperExceptionPage();
             app.UseStaticFiles();
+            app.UseMiddleware<LinkGeneratingMiddleware>();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller:zalgo}/{action:zalgo}/{id?}");
             });
         }
 
