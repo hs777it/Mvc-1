@@ -33,9 +33,11 @@ namespace MvcSandbox
         {
             if (httpContext.Request.Path == "/link")
             {
-                string path = _linkGenerator.GetPathByRouteValues(
+                var path = _linkGenerator.GetPathByRouteValues(
                     routeName: null,
                     values: new { controller = "SubscriptionManagement", action = "GetAll" });
+
+                //var path = _linkGenerator.GetUriByAction(httpContext, "GetAll", "SubscriptionManagement");
 
                 if (bool.TryParse(httpContext.Request.Query["redirect"], out var redirect) && redirect)
                 {

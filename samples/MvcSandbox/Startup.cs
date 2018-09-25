@@ -34,7 +34,7 @@ namespace MvcSandbox
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller:zalgo}/{action:zalgo}/{id?}");
+                    template: "{controller}/{action}/{id?}");
             });
         }
 
