@@ -86,6 +86,11 @@ namespace Microsoft.AspNetCore.Mvc.ModelBinding
                 throw new ArgumentNullException(nameof(key));
             }
 
+            if (key.Length == 0)
+            {
+                return ValueProviderResult.None;
+            }
+
             var values = _values[key];
             if (values.Count == 0)
             {
